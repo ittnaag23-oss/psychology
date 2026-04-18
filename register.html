@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychology - Registrarse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0d8ed 0%, #ffedf9 50%, #f5ddef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 400px;
+            background: #f8f9ff;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(15, 76, 117, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid rgba(102, 126, 234, 0.15);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(15, 76, 117, 0.2);
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b9d, #ffd93d, #6bcf7f, #4d96ff);
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: 0.95;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .register-form {
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-input {
+            padding: 13px 18px;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+            color: #2c3e50;
+            font-family: inherit;
+        }
+
+        .form-input::placeholder {
+            color: #a0aec0;
+        }
+
+        .form-input:focus {
+            border-color: #3282b8;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(50, 130, 184, 0.1);
+        }
+
+        .register-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, #3282b8 0%, #0f4c75 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(50, 130, 184, 0.3);
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(50, 130, 184, 0.4);
+        }
+
+        .register-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e7ff;
+        }
+
+        .login-link p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .login-link a {
+            color: #0f4c75;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            padding: 12px;
+            background: #fee;
+            border-left: 4px solid #f66;
+            border-radius: 4px;
+            color: #c33;
+            font-size: 13px;
+            display: none;
+        }
+
+        .success-message {
+            padding: 12px;
+            background: #efe;
+            border-left: 4px solid #6f6;
+            border-radius: 4px;
+            color: #3c3;
+            font-size: 13px;
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                max-width: 100%;
+                margin: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="header">
+            <h1>🌿 Psychology</h1>
+            <p>Crea tu cuenta</p>
+        </div>
+
+        <form class="register-form" id="registerForm">
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+
+            <div class="form-group">
+                <label class="form-label" for="name">Nombre completo</label>
+                <input 
+                    type="text" 
+                    class="form-input" 
+                    id="name" 
+                    placeholder="Tu nombre"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Correo electrónico</label>
+                <input 
+                    type="email" 
+                    class="form-input" 
+                    id="email" 
+                    placeholder="tu@email.com"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Contraseña</label>
+                <input 
+                    type="password" 
+                    class="form-input" 
+                    id="password" 
+                    placeholder="Contraseña (mín. 6 caracteres)"
+                    required
+                    minlength="6"
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="confirmPassword">Confirmar contraseña</label>
+                <input 
+                    type="password" 
+                    class="form-input" 
+                    id="confirmPassword" 
+                    placeholder="Confirma tu contraseña"
+                    required
+                    minlength="6"
+                >
+            </div>
+
+            <button type="submit" class="register-btn">Crear Cuenta</button>
+        </form>
+
+        <div class="login-link">
+            <p>¿Ya tienes cuenta?</p>
+            <a href="loggim.html">Inicia sesión aquí</a>
+        </div>
+    </div>
+
+    <script>
+        const registerForm = document.getElementById('registerForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            if (password !== confirmPassword) {
+                showError('Las contraseñas no coinciden');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('La contraseña debe tener al menos 6 caracteres');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showSuccess('¡Cuenta creada exitosamente! Redirigiendo al login...');
+                    setTimeout(() => {
+                        window.location.href = 'loggim.html';
+                    }, 2000);
+                } else {
+                    showError(data.message || 'Error al crear la cuenta');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error al conectar con el servidor');
+            }
+        });
+
+        function showError(msg) {
+            errorMessage.textContent = msg;
+            errorMessage.style.display = 'block';
+        }
+
+        function showSuccess(msg) {
+            successMessage.textContent = msg;
+            successMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
