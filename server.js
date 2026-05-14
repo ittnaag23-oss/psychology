@@ -42,16 +42,13 @@ app.post('/api/login', (req, res) => {
 // Ruta de mensajes con IA
 app.post('/api/message', async (req, res) => {
   const userMessage = req.body?.message;
-  const userId = req.body?.userId;
+  const userId = req.body?.userId || 'guest'; // Permitir sin userId, usar 'guest'
 
   if (!userMessage || typeof userMessage !== 'string') {
     return res.status(400).json({ error: 'Mensaje inválido' });
   }
 
-  if (!userId) {
-    return res.status(401).json({ error: 'Usuario no autenticado' });
-  }
-
+  // No requerir autenticación para mensajes
   const apiUrl = process.env.META_AI_API_URL;
   const apiKey = process.env.META_AI_API_KEY;
 

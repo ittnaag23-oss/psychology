@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Psychology - Registrarse</title>
+    <title>Psychology - Iniciar Sesión</title>
     <style>
         * {
             margin: 0;
@@ -13,6 +13,7 @@
 
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Paleta de colores: Azul calmante + Teal vibrante + Acentos cálidos */
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
             display: flex;
             justify-content: center;
@@ -21,24 +22,25 @@
             padding: 20px;
         }
 
-        .register-container {
+        .login-container {
             width: 100%;
             max-width: 400px;
             background: #f8f9ff;
             border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(15, 76, 117, 0.25);
+            box-shadow: 0 15px 50px rgba(25, 118, 210, 0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            border: 2px solid rgba(102, 126, 234, 0.15);
+            border: 2px solid rgba(66, 165, 245, 0.15);
         }
 
         .header {
-            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            /* Gradiente calmante: Azul profundo a Teal */
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
             color: white;
             padding: 25px 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(15, 76, 117, 0.2);
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
             position: relative;
         }
 
@@ -49,7 +51,13 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #ff6b9d, #ffd93d, #6bcf7f, #4d96ff);
+            background: linear-gradient(90deg, #e3f2fd, #bbdefb, #90caf9, #42a5f5);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: -1000px 0; }
+            50% { background-position: 1000px 0; }
         }
 
         .header h1 {
@@ -66,7 +74,7 @@
             letter-spacing: 0.3px;
         }
 
-        .register-form {
+        .login-form {
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
@@ -82,7 +90,7 @@
         .form-label {
             font-size: 14px;
             font-weight: 600;
-            color: #2c3e50;
+            color: #0d47a1;
         }
 
         .form-input {
@@ -98,18 +106,18 @@
         }
 
         .form-input::placeholder {
-            color: #a0aec0;
+            color: #78909c;
         }
 
         .form-input:focus {
-            border-color: #3282b8;
+            border-color: #1976d2;
             background: white;
-            box-shadow: 0 0 0 3px rgba(50, 130, 184, 0.1);
+            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
         }
 
-        .register-btn {
+        .login-btn {
             padding: 15px;
-            background: linear-gradient(135deg, #3282b8 0%, #0f4c75 100%);
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -117,63 +125,59 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(50, 130, 184, 0.3);
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
         }
 
-        .register-btn:hover {
+        .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(50, 130, 184, 0.4);
+            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
         }
 
-        .register-btn:active {
+        .login-btn:active {
             transform: translateY(0);
         }
 
-        .login-link {
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #1976d2;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .register-link {
             text-align: center;
             margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid #e0e7ff;
         }
 
-        .login-link p {
+        .register-link p {
             font-size: 14px;
             color: #666;
             margin-bottom: 8px;
         }
 
-        .login-link a {
-            color: #0f4c75;
+        .register-link a {
+            color: #0d47a1;
             text-decoration: none;
             font-weight: 600;
         }
 
-        .login-link a:hover {
+        .register-link a:hover {
             text-decoration: underline;
         }
 
-        .error-message {
-            padding: 12px;
-            background: #fee;
-            border-left: 4px solid #f66;
-            border-radius: 4px;
-            color: #c33;
-            font-size: 13px;
-            display: none;
-        }
-
-        .success-message {
-            padding: 12px;
-            background: #efe;
-            border-left: 4px solid #6f6;
-            border-radius: 4px;
-            color: #3c3;
-            font-size: 13px;
-            display: none;
-        }
-
         @media (max-width: 480px) {
-            .register-container {
+            .login-container {
                 max-width: 100%;
                 margin: 20px;
             }
@@ -185,27 +189,13 @@
     </style>
 </head>
 <body>
-    <div class="register-container">
+    <div class="login-container">
         <div class="header">
             <h1>🌿 Psychology</h1>
-            <p>Crea tu cuenta</p>
+            <p>Inicia sesión en tu cuenta</p>
         </div>
 
-        <form class="register-form" id="registerForm">
-            <div id="errorMessage" class="error-message"></div>
-            <div id="successMessage" class="success-message"></div>
-
-            <div class="form-group">
-                <label class="form-label" for="name">Nombre completo</label>
-                <input 
-                    type="text" 
-                    class="form-input" 
-                    id="name" 
-                    placeholder="Tu nombre"
-                    required
-                >
-            </div>
-
+        <form class="login-form" action="#" method="post">
             <div class="form-group">
                 <label class="form-label" for="email">Correo electrónico</label>
                 <input 
@@ -223,93 +213,99 @@
                     type="password" 
                     class="form-input" 
                     id="password" 
-                    placeholder="Contraseña (mín. 6 caracteres)"
+                    placeholder="Tu contraseña"
                     required
-                    minlength="6"
                 >
             </div>
 
-            <div class="form-group">
-                <label class="form-label" for="confirmPassword">Confirmar contraseña</label>
-                <input 
-                    type="password" 
-                    class="form-input" 
-                    id="confirmPassword" 
-                    placeholder="Confirma tu contraseña"
-                    required
-                    minlength="6"
-                >
-            </div>
-
-            <button type="submit" class="register-btn">Crear Cuenta</button>
+            <button type="submit" class="login-btn">Iniciar Sesión</button>
         </form>
 
-        <div class="login-link">
-            <p>¿Ya tienes cuenta?</p>
-            <a href="loggim.html">Inicia sesión aquí</a>
+        <div class="forgot-password">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <div class="register-link">
+            <p>¿No tienes cuenta?</p>
+            <a href="register.html">Regístrate aquí</a>
         </div>
     </div>
 
     <script>
-        const registerForm = document.getElementById('registerForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
+        const loginForm = document.querySelector('.login-form');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
 
-        registerForm.addEventListener('submit', async (e) => {
+        // Crear elementos para mensajes de error/éxito
+        const messageDiv = document.createElement('div');
+        messageDiv.style.display = 'none';
+        messageDiv.style.padding = '12px';
+        messageDiv.style.marginBottomBottom = '15px';
+        messageDiv.style.borderRadius = '4px';
+        messageDiv.style.fontSize = '13px';
+        loginForm.insertBefore(messageDiv, loginForm.firstChild);
+
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
 
-            errorMessage.style.display = 'none';
-            successMessage.style.display = 'none';
+            messageDiv.style.display = 'none';
 
-            if (password !== confirmPassword) {
-                showError('Las contraseñas no coinciden');
-                return;
-            }
-
-            if (password.length < 6) {
-                showError('La contraseña debe tener al menos 6 caracteres');
+            if (!email || !password) {
+                showMessage('Por favor completa todos los campos', 'error');
                 return;
             }
 
             try {
-                const response = await fetch('http://localhost:3000/api/register', {
+                const response = await fetch('http://localhost:3000/api/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ name, email, password })
+                    body: JSON.stringify({ email, password })
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
-                    showSuccess('¡Cuenta creada exitosamente! Redirigiendo al login...');
+                    // Guardar usuario en localStorage
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    showMessage('¡Login exitoso! Redirigiendo...', 'success');
                     setTimeout(() => {
-                        window.location.href = 'loggim.html';
-                    }, 2000);
+                        window.location.href = 'index.html';
+                    }, 1500);
                 } else {
-                    showError(data.message || 'Error al crear la cuenta');
+                    showMessage(data.message || 'Error en el login', 'error');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                showError('Error al conectar con el servidor');
+                showMessage('Error al conectar con el servidor', 'error');
             }
         });
 
-        function showError(msg) {
-            errorMessage.textContent = msg;
-            errorMessage.style.display = 'block';
+        function showMessage(msg, type) {
+            messageDiv.textContent = msg;
+            messageDiv.style.display = 'block';
+            if (type === 'error') {
+                messageDiv.style.background = '#fee';
+                messageDiv.style.borderLeft = '4px solid #f66';
+                messageDiv.style.color = '#c33';
+            } else {
+                messageDiv.style.background = '#efe';
+                messageDiv.style.borderLeft = '4px solid #6f6';
+                messageDiv.style.color = '#3c3';
+            }
         }
 
-        function showSuccess(msg) {
-            successMessage.textContent = msg;
-            successMessage.style.display = 'block';
-        }
+        // Verificar si ya está logueado
+        window.addEventListener('load', () => {
+            const user = localStorage.getItem('user');
+            if (user) {
+                window.location.href = 'index.html';
+            }
+        });
     </script>
 </body>
 </html>

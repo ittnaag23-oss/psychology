@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychology - Bienvenido</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .welcome-container {
+            width: 100%;
+            max-width: 500px;
+            background: #f8f9ff;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(25, 118, 210, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid rgba(66, 165, 245, 0.15);
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            color: white;
+            padding: 25px 20px;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+            position: relative;
+            margin: -40px -30px 30px -30px;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e3f2fd, #bbdefb, #90caf9, #42a5f5);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: -1000px 0; }
+            50% { background-position: 1000px 0; }
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .welcome-content {
+            flex: 1;
+        }
+
+        .welcome-message {
+            margin-bottom: 30px;
+        }
+
+        .welcome-message h2 {
+            font-size: 24px;
+            color: #0d47a1;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .welcome-message p {
+            font-size: 16px;
+            color: #546e7a;
+            line-height: 1.6;
+        }
+
+        .user-greeting {
+            font-size: 18px;
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .chat-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .chat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #bbdefb;
+            color: #1976d2;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #1976d2;
+            color: white;
+            border-color: #1976d2;
+        }
+
+        @media (max-width: 480px) {
+            .welcome-container {
+                max-width: 100%;
+                margin: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="header">
+            <h1>🌿 Psychology</h1>
+            <p>Tu amigo en salud mental</p>
+        </div>
+
+        <div class="welcome-content">
+            <div class="welcome-message">
+                <h2>¡Bienvenido de vuelta!</h2>
+                <p>Estoy aquí para apoyarte en tu bienestar emocional. ¿Listo para conversar?</p>
+            </div>
+
+            <div class="user-greeting" id="userGreeting">Hola, Usuario</div>
+
+            <button class="chat-btn" id="chatBtn">Ir al Chat</button>
+
+            <button class="logout-btn" id="logoutBtn">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticación
+        window.addEventListener('load', () => {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'loggim.html';
+                return;
+            }
+
+            const userData = JSON.parse(user);
+            document.getElementById('userGreeting').textContent = `Hola, ${userData.name || userData.email}`;
+        });
+
+        // Ir al chat
+        document.getElementById('chatBtn').addEventListener('click', () => {
+            window.location.href = 'chat.html';
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('user');
+            window.location.href = 'loggim.html';
+        });
+    </script>
+</body>
+</html>
+                opacity: 1;
+                transform: translateY(-12px);
+            }
+        }
+
+        .input-area {
+            padding: 18px;
+            background: white;
+            border-top: 1px solid #e0e7ff;
+            display: flex;
+            gap: 12px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 13px 18px;
+            border: 2px solid #e0e7ff;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+            color: #2c3e50;
+            font-family: inherit;
+        }
+
+        .input-field::placeholder {
+            color: #a0aec0;
+        }
+
+        .input-field:focus {
+            border-color: #3282b8;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(50, 130, 184, 0.1);
+        }
+
+        .send-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            /* Gradiente energético */
+            background: linear-gradient(135deg, #3282b8 0%, #0f4c75 100%);
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(50, 130, 184, 0.35);
+            font-weight: bold;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(50, 130, 184, 0.45);
+        }
+
+        .send-btn:active {
+            transform: scale(0.96);
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #7a8fa3;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 280px;
+            font-weight: 500;
+        }
+
+        .empty-state-subtitle {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 10px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f0f4ff;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #3282b8 0%, #0f4c75 100%);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #2a6fa0 0%, #0a3f5c 100%);
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .option-btn {
+            padding: 12px 16px;
+            border: 2px solid #3282b8;
+            background: white;
+            color: #0f4c75;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .option-btn:hover {
+            background: linear-gradient(135deg, #3282b8 0%, #0f4c75 100%);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(50, 130, 184, 0.3);
+        }
+
+        .option-btn:active {
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-container {
+                max-width: 100%;
+                height: 85vh;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="header">
+            <div class="header-left">
+                <h1>🌿 Psychology</h1>
+                <p>Tu apoyo en salud mental - Aquí para ti 24/7</p>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <div id="userName">Usuario</div>
+                </div>
+                <button class="logout-btn" id="logoutBtn">Salir</button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="empty-state">
+                <div class="empty-state-icon">💙</div>
+                <p>¡Hola! Soy psychology, tu asistente de bienestar mental</p>
+                <div class="empty-state-subtitle">Estoy aquí para escuchar y apoyarte</div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input 
+                type="text" 
+                class="input-field" 
+                id="messageInput" 
+                placeholder="¿Qué hay en tu mente?"
+                autocomplete="off"
+            >
+            <button class="send-btn" id="sendBtn">→</button>
+        </div>
+    </div>
+
+    <script>
+        // Verificar autenticación
+        window.addEventListener('load', () => {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'loggim.html';
+                return;
+            }
+
+            const userData = JSON.parse(user);
+            document.getElementById('userName').textContent = userData.name || userData.email;
+            currentUserId = userData.id;
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('user');
+            window.location.href = 'loggim.html';
+        });
+
+        let currentUserId = null;
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // Respuestas enfocadas en salud mental para jóvenes
+        const responses = {
+            'hola': '¡Hola! Me alegra verte por aquí 😊 ¿Cómo te sientes hoy?',
+            'buenos días': '¡Buenos días! 🌅 Espero que hayas descansado bien. ¿Qué tal tu día?',
+            'buenas tardes': '¡Buenas tardes! ☀️ Espero que estés teniendo un gran día.',
+            'buenas noches': '¡Buenas noches! 🌙 Espero que te tomes un tiempo para relajarte.',
+            'cómo estás': 'Estoy bien, estoy aquí para apoyarte. Pero cuéntame... ¿cómo te sientes TÚ? 💙',
+            'gracias': '¡De nada! Estoy feliz de poder ayudarte. Recuerda que tu bienestar es importante. 💜',
+            
+            'ansiedad': 'Entiendo que la ansiedad es difícil. Respira profundo: inhala por 4, sostén 4, exhala 4. ¿Quieres técnicas para manejarla?',
+            'ansioso': 'Es normal sentir ansiedad. Prueba técnicas de respiración o meditación. ¿Te gustaría saber más?',
+            'estrés': 'El estrés es común en jóvenes. Intenta hacer pausas, ejercicio o hablar con alguien. ¿Qué te estresa?',
+            'estresado': 'Lamento que estés estresado. Recuerda que no todo está bajo tu control. ¿Puedo ayudarte con algo específico?',
+            
+            'depresión': 'Si sientes que la depresión es abrumadora, es importante hablar con un profesional. Tu vida tiene valor. 💙',
+            'deprimido': 'Siento que estés pasando por esto. Los sentimientos cambian. ¿Hay algo que te emocione usualmente?',
+            'triste': 'Está bien sentir tristeza. Las emociones negativas también son parte de ser humano. ¿Quieres hablar al respecto?',
+            'sad': 'Estoy aquí para escuchar. A veces expresar lo que sentimos ayuda a procesar. Cuéntame más.',
+            
+            'sueño': 'El sueño es vital para tu salud mental. ¿Tienes problemas para dormir? Puedo sugerirte técnicas de relajación.',
+            'insomnio': 'El insomnio es frustrante. Intenta: no usar móvil 1 hora antes, ambiente oscuro, meditación. ¿Lo intentas?',
+            'no puedo dormir': 'Eso es complicado. ¿Has probado técnicas de relajación muscular o apps de meditación? Te podría ayudar.',
+            'cansado': 'Es importante descansar lo suficiente. Tu cuerpo y mente lo necesitan. ¿Duermes bien?',
+            
+            'autoestima': 'Tu valor no depende de lo que otros piensen. Eres suficiente tal como eres. 💛 ¿Qué te hace sentir mal?',
+            'inseguro': 'Muchas personas se sienten inseguras. Recuerda tus fortalezas. ¿En qué específicamente te sientes inseguro?',
+            'no me gusto': 'Entiendo, pero hay gente que te ama tal como eres. ¿Hay algo en ti que sí que te guste?',
+            'feo': 'La belleza va más allá de la apariencia física. Tu valor está en quién eres como persona. ¿Puedo ayudarte?',
+            
+            'relaciones': 'Las relaciones son complejas. Todos merecemos respeto y apoyo. ¿Hay algún conflicto específico?',
+            'relación': 'Las relaciones sanas requieren comunicación honesta y respeto mutuo. ¿Cómo puedo ayudarte?',
+            'novio': 'Las relaciones requieren confianza y comunicación. ¿Todo está bien con tu pareja?',
+            'novia': 'Es importante sentirse valorado en una relación. ¿Hay algo que te preocupe?',
+            'grupo': 'Sentir que perteneces es importante. Busca personas que te respeten y apoyen. ¿Te sientes solo?',
+            'solo': 'La soledad es difícil, pero puedes conectar con otros. Busca comunidades o actividades que disfrutes.',
+            'amigos': 'Los amigos verdaderos apoyan tu bienestar. ¿Tienes personas en las que confías?',
+            
+            'escuela': 'La presión escolar es real. Recuerda que tus notas no definen tu valor. ¿Qué te preocupa?',
+            'estudio': 'Estudiar es importante, pero tu salud mental lo es más. ¿Needs consejos de gestión del tiempo?',
+            'presión': 'La presión es agobiante. Está bien pedir ayuda. ¿Hay algo que te presione específicamente?',
+            'futuro': 'El futuro puede parecer aterrador, pero un paso a la vez lo hace manejable. ¿Qué te preocupa?',
+            
+            'miedo': 'Los miedos son válidos. ¿A qué específicamente temes? A veces hablar ayuda a procesarlos.',
+            'pánico': 'Los ataques de pánico son aterradores pero no peligrosos. Técnica de 5-4-3-2-1: siente 5 cosas, escucha 4...',
+            'mal': 'Lamento que te sientas mal. ¿Hay algo específico que pasó? Estoy aquí para escuchar.',
+            'ayuda': 'Pedir ayuda es un acto de valentía, no de debilidad. ¿Cómo puedo apoyarte?',
+            
+            'respira': 'Excelente idea. Respira lentamente: inhala profundo, sostén, exhala. ¿Te ayuda?',
+            'meditación': 'La meditación es excelente para la calma mental. Apps como Headspace o Insight Timer pueden ayudarte.',
+            'ejercicio': 'El movimiento es una medicina natural para la mente. Incluso caminar 15 min ayuda. ¿Lo intentas?',
+            'yoga': 'El yoga es perfecto para cuerpo y mente. Hay videos en YouTube para principiantes. ¡Pruébalo!',
+            
+            'amistad': 'Las amistades genuinas enriquecen la vida. ¿Tienes gente así cerca de ti?',
+            'amor': 'El amor propio es lo más importante. ¿Te amas y respetas a ti mismo?',
+            'perdón': 'Perdonar (incluyendo a ti mismo) es liberador. ¿De qué necesitas perdonarte?',
+            'cambio': 'El cambio es difícil pero posible. Pequeños pasos llevan a grandes transformaciones. 🌱',
+            
+            'profesional': 'Ver a un psicólogo o consejero es una excelente idea. Tu escuela o comunidad pueden ayudarte a encontrar uno.',
+            'terapeuta': 'Un terapeuta puede darte herramientas personalizadas. No dudes en buscar ayuda profesional.',
+            'suicida': 'Tu vida importa. Si tienes estos pensamientos, contacta a un profesional o crisis hotline AHORA. No estás solo. 💙',
+            'morir': 'Esos sentimientos son serios. Habla con un adulto de confianza o profesional. Hay ayuda disponible.',
+            'línea de crisis': 'En USA: 988 (Suicide & Crisis Lifeline). Busca el número local de tu país. Estoy aquí también.',
+            
+            'adiós': 'Hasta luego! Recuerda: tu bienestar es lo primero. ¡Cuídate! 💜',
+            'bye': 'Hasta pronto! Sigue adelante, tú puedes. 💪',
+        };
+
+        function clearMessages() {
+            chatMessages.innerHTML = '';
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.textContent = text;
+            
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addOptionsMessage(text, options) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.innerHTML = `<div>${text}</div>`;
+            
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'options-container';
+            
+            options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option.text;
+                btn.onclick = () => {
+                    messageInput.value = option.trigger;
+                    handleSendMessage();
+                };
+                optionsContainer.appendChild(btn);
+            });
+            
+            bubble.appendChild(optionsContainer);
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.id = 'typing-indicator';
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'typing-dot';
+                bubble.appendChild(dot);
+            }
+            
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) {
+                typing.remove();
+            }
+        }
+
+        function showAnxietyOptions() {
+            addOptionsMessage(
+                '¿Cuál de estas técnicas te gustaría probar?',
+                [
+                    { text: '🫁 Técnica de respiración 4-4-4', trigger: 'respiracion' },
+                    { text: '🧘 Meditación guiada', trigger: 'meditación' },
+                    { text: '🚶 Ejercicio y movimiento', trigger: 'ejercicio' },
+                    { text: '📱 Apps recomendadas', trigger: 'apps' }
+                ]
+            );
+        }
+
+        function showStressOptions() {
+            addOptionsMessage(
+                '¿Qué te gustaría hacer para manejar el estrés?',
+                [
+                    { text: '⏸️ Pausas y descansos', trigger: 'pausas' },
+                    { text: '🎯 Gestión de tiempo', trigger: 'tiempo' },
+                    { text: '🤝 Hablar con alguien', trigger: 'hablar' },
+                    { text: '💪 Actividades relajantes', trigger: 'relajación' }
+                ]
+            );
+        }
+
+        function getBotResponse(userMessage) {
+            const normalizedMessage = userMessage.toLowerCase().trim();
+            
+            // Manejo especial para ansiedad y estrés
+            if (normalizedMessage.includes('ansiedad') || normalizedMessage.includes('ansioso')) {
+                return 'SHOW_ANXIETY_OPTIONS';
+            }
+            
+            if (normalizedMessage.includes('estrés') || normalizedMessage.includes('estresado')) {
+                return 'SHOW_STRESS_OPTIONS';
+            }
+            
+            // Respuestas para técnicas específicas
+            const techniquesResponses = {
+                'respiracion': '🫁 Técnica 4-4-4: Inhala contando 4 segundos, sostén 4 segundos, exhala 4 segundos. Repite 5-10 veces. ¿Cómo te sientes?',
+                'apps': '📱 Apps excelentes: Headspace, Calm, Insight Timer, Breathwrk. La mayoría tienen versiones gratuitas. ¡Descarga una! 💙',
+                'pausas': '⏸️ Importante: Toma pausas cada 25-30 min. Camina, bebe agua, respira. Tu mente necesita descanso.',
+                'tiempo': '🎯 Intenta: Escribe tareas, prioriza las 3 principales, divide en pasos pequeños. ¿Te funciona este método?',
+                'hablar': '🤝 Hablar ayuda: Con amigos, familia, profesor o consejero. No estás solo en esto. ¿Hay alguien de confianza?',
+                'relajación': '💆 Actividades: música, arte, tiempo en naturaleza, yoga, baño caliente o simplemente descansar. ¡Prueba varias!'
+            };
+            
+            for (let key in techniquesResponses) {
+                if (normalizedMessage.includes(key)) {
+                    return techniquesResponses[key];
+                }
+            }
+            
+            // Búsqueda exacta en respuestas generales
+            if (responses[normalizedMessage]) {
+                return responses[normalizedMessage];
+            }
+            
+            // Búsqueda parcial
+            for (let key in responses) {
+                if (normalizedMessage.includes(key)) {
+                    return responses[key];
+                }
+            }
+            
+            // Respuestas empáticas genéricas
+            const genericResponses = [
+                'Entiendo. Cuéntame más sobre cómo te sientes. 👂',
+                'Eso suena importante. ¿Hay algo específico que necesites?',
+                'Aprecio que compartas conmigo. ¿Cómo puedo apoyarte?',
+                'Tus sentimientos son válidos. ¿Qué necesitas ahora?',
+                'Gracias por confiar en mí. ¿Hay algo más que querías decir?',
+                'Estoy aquí para escucharte. Cuéntame más. 💙',
+                'Es interesante lo que dices. ¿Cómo te hace sentir?',
+                'Eso debe ser difícil. ¿Cómo puedo ayudarte hoy?'
+            ];
+            
+            return genericResponses[Math.floor(Math.random() * genericResponses.length)];
+        }
+
+        async function fetchMetaIAResponse(userMessage) {
+            try {
+                const response = await fetch('http://localhost:3000/api/message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: userMessage, userId: currentUserId })
+                });
+
+                if (!response.ok) {
+                    return null;
+                }
+
+                const data = await response.json();
+                if (data.answer) {
+                    return data.answer;
+                }
+
+                return null;
+            } catch (error) {
+                console.error('Error conectando al servidor de IA:', error);
+                return null;
+            }
+        }
+
+        async function handleSendMessage() {
+            const message = messageInput.value.trim();
+            
+            if (!message) return;
+            
+            messageInput.value = '';
+            
+            if (chatMessages.querySelector('.empty-state')) {
+                clearMessages();
+            }
+            
+            addMessage(message, 'user');
+            showTypingIndicator();
+
+            const serverResponse = await fetchMetaIAResponse(message);
+            removeTypingIndicator();
+
+            if (serverResponse) {
+                addMessage(serverResponse, 'bot');
+            } else {
+                const botResponse = getBotResponse(message);
+                if (botResponse === 'SHOW_ANXIETY_OPTIONS') {
+                    showAnxietyOptions();
+                } else if (botResponse === 'SHOW_STRESS_OPTIONS') {
+                    showStressOptions();
+                } else {
+                    addMessage(botResponse, 'bot');
+                }
+            }
+            
+            messageInput.focus();
+        }
+
+        // Event listeners
+        sendBtn.addEventListener('click', handleSendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+
+        // Focus inicial
+        messageInput.focus();
+    </script>
+</body>
+</html>
