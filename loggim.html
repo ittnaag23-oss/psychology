@@ -137,6 +137,29 @@
             transform: translateY(0);
         }
 
+        .guest-access {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .guest-btn {
+            padding: 14px 18px;
+            background: #ffffff;
+            color: #1976d2;
+            border: 2px solid #1976d2;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .guest-btn:hover {
+            background: #1976d2;
+            color: white;
+        }
+
         .forgot-password {
             text-align: center;
             margin-top: 15px;
@@ -225,6 +248,10 @@
             <a href="#">¿Olvidaste tu contraseña?</a>
         </div>
 
+        <div class="guest-access">
+            <button type="button" class="guest-btn" id="guestBtn">Continuar como invitado</button>
+        </div>
+
         <div class="register-link">
             <p>¿No tienes cuenta?</p>
             <a href="register.html">Regístrate aquí</a>
@@ -298,6 +325,12 @@
                 messageDiv.style.color = '#3c3';
             }
         }
+
+        document.getElementById('guestBtn').addEventListener('click', () => {
+            const guestUser = { id: 'guest', name: 'Invitado', guest: true };
+            localStorage.setItem('user', JSON.stringify(guestUser));
+            window.location.href = 'index.html';
+        });
 
         // Verificar si ya está logueado
         window.addEventListener('load', () => {

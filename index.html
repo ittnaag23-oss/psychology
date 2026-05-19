@@ -182,7 +182,8 @@
             }
 
             const userData = JSON.parse(user);
-            document.getElementById('userGreeting').textContent = `Hola, ${userData.name || userData.email}`;
+            const greetingName = userData.guest ? 'Invitado' : (userData.name || userData.email);
+            document.getElementById('userGreeting').textContent = `Hola, ${greetingName}`;
         });
 
         // Ir al chat
