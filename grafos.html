@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría de Grafos - Juegos Educativos Completos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SECCIÓN DE TEORÍA */
+        .theory-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .theory-section {
+            margin-bottom: 40px;
+        }
+
+        .theory-section h2 {
+            color: #3498db;
+            font-size: 2em;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .theory-section h3 {
+            color: #2980b9;
+            font-size: 1.4em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .theory-section p {
+            color: #2c3e50;
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-bottom: 12px;
+        }
+
+        .example-box {
+            background: #ecf0f1;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .concept-card {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .concept-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .concept-card p {
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* SECCIÓN DE JUEGOS */
+        .games-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .game-wrapper {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-header {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 25px;
+        }
+
+        .game-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .game-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            min-height: 650px;
+        }
+
+        .game-sidebar {
+            padding: 25px;
+            background: #ecf0f1;
+            border-right: 2px solid #bdc3c7;
+            overflow-y: auto;
+            max-height: 650px;
+        }
+
+        .game-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            background: white;
+            align-items: start;
+        }
+
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .canvas-label {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        canvas {
+            border: 3px solid #34495e;
+            border-radius: 8px;
+            background: white;
+            cursor: crosshair;
+            max-width: 100%;
+            max-height: 500px;
+        }
+
+        .model-info {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .game-sidebar h3 {
+            color: #3498db;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .game-sidebar p {
+            color: #2c3e50;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .stat-item {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-item .label {
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        .stat-item .value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 70px;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary.active {
+            background: #27ae60;
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.5);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            min-height: 20px;
+            display: none;
+        }
+
+        .message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            color: #0c5460;
+            margin-top: 10px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #bdc3c7;
+            margin: 15px 0;
+        }
+
+        .template-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .template-btn {
+            padding: 8px 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+        }
+
+        .template-btn:hover {
+            background: #2980b9;
+            transform: translateX(5px);
+        }
+
+        .validation-result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .validation-result.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .validation-result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .validation-result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #3498db;
+            background: white;
+            color: #3498db;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85em;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .game-content {
+                grid-template-columns: 1fr;
+            }
+
+            .game-main {
+                grid-template-columns: 1fr;
+            }
+
+            .game-sidebar {
+                border-right: none;
+                border-bottom: 2px solid #bdc3c7;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-content {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .game-main {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .theory-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>📊 Teoría de Grafos - Juegos Completos</h1>
+            <p>Aprende, juega y valida tus conocimientos en teoría de grafos</p>
+        </header>
+
+        <div class="navigation">
+            <button class="nav-btn active" onclick="showSection('theory')">📚 Teoría</button>
+            <button class="nav-btn" onclick="showSection('game1')">🛤️ Juego 1: Caminos</button>
+            <button class="nav-btn" onclick="showSection('game2')">🌐 Juego 2: Coloreo</button>
+        </div>
+
+        <!-- SECCIÓN DE TEORÍA -->
+        <div id="theory" class="section active">
+            <div class="theory-container">
+                <div class="theory-section">
+                    <h2>¿Qué es la Teoría de Grafos?</h2>
+                    <p>
+                        La <strong>teoría de grafos</strong> es una rama de las matemáticas que estudia las propiedades de los <strong>grafos</strong>, 
+                        que son estructuras compuestas por conjuntos de objetos llamados <strong>nodos</strong> (o vértices) conectados por 
+                        <strong>aristas</strong> (o arcos). Es una disciplina fundamental en la informática moderna.
+                    </p>
+                    <p>
+                        Los grafos nos permiten modelar y resolver problemas complejos en el mundo real, desde redes de computadoras 
+                        hasta redes sociales, mapas de carreteras, y sistemas de transporte.
+                    </p>
+                </div>
+
+                <div class="theory-section">
+                    <h2>Conceptos Fundamentales</h2>
+                    
+                    <div class="concepts-grid">
+                        <div class="concept-card">
+                            <h4>🔵 Nodos (Vértices)</h4>
+                            <p>Elementos u objetos del grafo. Pueden representar ciudades, personas, computadoras, etc.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🔗 Aristas (Arcos)</h4>
+                            <p>Conexiones entre nodos. Pueden ser dirigidas (flecha) o no dirigidas (línea).</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>📊 Grado de un Nodo</h4>
+                            <p>Número de aristas conectadas a un nodo. En grafos dirigidos: grado de entrada y salida.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🛤️ Camino</h4>
+                            <p>Secuencia de nodos conectados por aristas sin repetir nodos.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🔄 Ciclo</h4>
+                            <p>Camino que comienza y termina en el mismo nodo, visitando otros nodos sin repetir aristas.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🌳 Árbol</h4>
+                            <p>Grafo conexo sin ciclos. Fundamental en estructuras de datos.</p>
+                        </div>
+                    </div>
+
+                    <h3>Tipos de Grafos</h3>
+                    <p><strong>Grafos Dirigidos:</strong> Las aristas tienen dirección (indicadas con flechas). Se usan para representar relaciones asimétricas.</p>
+                    <p><strong>Grafos No Dirigidos:</strong> Las aristas no tienen dirección. Se usan para relaciones simétricas.</p>
+                    <p><strong>Grafos Ponderados:</strong> Las aristas tienen pesos (números asociados). Se usan en problemas de distancia o costo.</p>
+                    <p><strong>Grafos Bipartitos:</strong> Los nodos se dividen en dos conjuntos, y solo hay aristas entre conjuntos diferentes.</p>
+                </div>
+
+                <div class="theory-section">
+                    <h2>Aplicaciones en la Vida Real</h2>
+                    <div class="example-box">
+                        <strong>🌐 Redes Sociales:</strong>
+                        Los usuarios son nodos y las amistades/seguimientos son aristas. Los algoritmos de grafos ayudan a encontrar amigos en común o comunidades.
+                    </div>
+                    <div class="example-box">
+                        <strong>🗺️ GPS y Mapas:</strong>
+                        Las ciudades son nodos, las carreteras son aristas ponderadas por distancia. Se usa para encontrar rutas más cortas (Dijkstra).
+                    </div>
+                    <div class="example-box">
+                        <strong>🖥️ Internet y Redes:</strong>
+                        Los ordenadores son nodos, las conexiones son aristas. Fundamental para enrutamiento de datos (BFS, DFS).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JUEGO 1: CAMINOS HAMILTONIANOS CON MODELO -->
+        <div id="game1" class="section">
+            <div class="game-wrapper">
+                <div class="game-header">
+                    <h2>🛤️ Juego 1: Replica el Grafo de Referencia</h2>
+                    <p>Observa el modelo a la izquierda y crea el mismo grafo en tu lienzo - ¡El sistema validará si está correcto!</p>
+                </div>
+                <div class="game-content">
+                    <div class="game-sidebar">
+                        <h3>📋 Instrucciones</h3>
+                        <p>✅ Observa el modelo a la derecha</p>
+                        <p>✅ Replica el grafo exactamente en tu lienzo (posición no importa)</p>
+                        <p>✅ Click derecho en nodo/arista para eliminar</p>
+                        <p>✅ Presiona "Validar" cuando termines</p>
+
+                        <div class="divider"></div>
+
+                        <h3>🎯 Plantillas Disponibles</h3>
+                        <div class="template-buttons">
+                            <button class="template-btn" onclick="game1LoadTemplate(1)">📍 Triángulo (3 nodos)</button>
+                            <button class="template-btn" onclick="game1LoadTemplate(2)">🔷 Cuadrado (4 nodos)</button>
+                            <button class="template-btn" onclick="game1LoadTemplate(3)">⭐ Estrella (5 nodos)</button>
+                            <button class="template-btn" onclick="game1LoadTemplate(4)">🔶 Hexágono (6 nodos)</button>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <h3>📊 Estadísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="label">Nodos</div>
+                                <div class="value" id="g1-nodes">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="label">Aristas</div>
+                                <div class="value" id="g1-edges">0</div>
+                            </div>
+                        </div>
+
+                        <h3>🎮 Controles</h3>
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="game1ResetUser()">🔄 Reiniciar</button>
+                            <button class="btn btn-danger" onclick="game1ClearUser()">🗑️ Limpiar Todo</button>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-success" onclick="game1Validate()">✓ Validar</button>
+                        </div>
+
+                        <div class="message" id="g1-message"></div>
+                        <div class="validation-result" id="g1-validation"></div>
+
+                        <div class="info-box">
+                            <strong>💡 Tip:</strong> Click izquierdo para crear nodos o aristas. Click derecho sobre un nodo o arista para eliminar.
+                        </div>
+                    </div>
+                    <div class="game-main">
+                        <div class="canvas-container">
+                            <div class="canvas-label">🎮 Tu Grafo</div>
+                            <canvas id="game1Canvas"></canvas>
+                            <div class="model-info">Click izq: crear | Click der: eliminar</div>
+                        </div>
+                        <div class="canvas-container">
+                            <div class="canvas-label">📋 Modelo de Referencia</div>
+                            <canvas id="game1ModelCanvas"></canvas>
+                            <div class="model-info" id="g1-model-info">Carga una plantilla</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JUEGO 2: COLOREO DE GRAFOS CON ARISTAS -->
+        <div id="game2" class="section">
+            <div class="game-wrapper">
+                <div class="game-header">
+                    <h2>🌐 Juego 2: Colorea y Conecta el Grafo</h2>
+                    <p>Colorea los nodos y crea aristas entre ellos siguiendo el modelo - ¡Aprende coloreo de grafos de forma interactiva!</p>
+                </div>
+                <div class="game-content">
+                    <div class="game-sidebar">
+                        <h3>📋 Instrucciones</h3>
+                        <p>✅ Observa el modelo coloreado a la izquierda</p>
+                        <p>✅ Modo Nodo: Click para crear nodos, click en dos nodos para conectarlos</p>
+                        <p>✅ Selecciona un color y colorea los nodos</p>
+                        <p>✅ Replica exactamente el patrón del modelo</p>
+                        <p>✅ Presiona "Validar" cuando termines</p>
+
+                        <div class="divider"></div>
+
+                        <h3>🎮 Modo de Juego</h3>
+                        <div class="mode-toggle">
+                            <button class="mode-btn active" onclick="game2SetMode('node')">🔵 Nodo</button>
+                            <button class="mode-btn" onclick="game2SetMode('edge')">🔗 Arista</button>
+                            <button class="mode-btn" onclick="game2SetMode('color')">🎨 Color</button>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <h3>🎨 Colores Disponibles</h3>
+                        <div class="button-group" style="margin: 10px 0;">
+                            <button class="btn" style="background: #FF6B6B; width: 40px; flex-basis: auto;" onclick="game2SelectColor('#FF6B6B')" title="Rojo"></button>
+                            <button class="btn" style="background: #4ECDC4; width: 40px; flex-basis: auto;" onclick="game2SelectColor('#4ECDC4')" title="Verde"></button>
+                            <button class="btn" style="background: #FFD93D; width: 40px; flex-basis: auto;" onclick="game2SelectColor('#FFD93D')" title="Amarillo"></button>
+                            <button class="btn" style="background: #6C5CE7; width: 40px; flex-basis: auto;" onclick="game2SelectColor('#6C5CE7')" title="Púrpura"></button>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <h3>📊 Estadísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="label">Nodos</div>
+                                <div class="value" id="g2-nodes">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="label">Aristas</div>
+                                <div class="value" id="g2-edges">0</div>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="label">Coloreados</div>
+                                <div class="value" id="g2-colored">0</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="label">Conectados</div>
+                                <div class="value" id="g2-connected">0</div>
+                            </div>
+                        </div>
+
+                        <h3>🎮 Controles</h3>
+                        <div class="button-group">
+                            <button class="btn btn-primary" onclick="game2Generate()">🎲 Generar Grafo</button>
+                            <button class="btn btn-danger" onclick="game2ClearAll()">🗑️ Limpiar Todo</button>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-success" onclick="game2Validate()">✓ Validar</button>
+                        </div>
+
+                        <div class="message" id="g2-message"></div>
+                        <div class="validation-result" id="g2-validation"></div>
+
+                        <div class="info-box" id="g2-mode-info">
+                            <strong>💡 Modo Nodo:</strong> Click para crear nodos. Click derecho para eliminar.
+                        </div>
+                    </div>
+                    <div class="game-main">
+                        <div class="canvas-container">
+                            <div class="canvas-label">📋 Modelo de Referencia</div>
+                            <canvas id="game2ModelCanvas"></canvas>
+                            <div class="model-info">Modelo completado</div>
+                        </div>
+                        <div class="canvas-container">
+                            <div class="canvas-label">🎮 Tu Grafo</div>
+                            <canvas id="game2Canvas"></canvas>
+                            <div class="model-info" id="g2-canvas-info">Click para crear nodos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== NAVEGACIÓN ====================
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (sectionId === 'game1') {
+                game1Init();
+                if (g1ModelNodes.length === 0) {
+                    game1LoadTemplate(1);
+                }
+            }
+            if (sectionId === 'game2') {
+                game2Init();
+                if (g2ModelNodes.length === 0) {
+                    game2Generate();
+                }
+            }
+        }
+
+        // ==================== JUEGO 1: CAMINOS ====================
+        const canvas1 = document.getElementById('game1Canvas');
+        const modelCanvas1 = document.getElementById('game1ModelCanvas');
+        const ctx1 = canvas1.getContext('2d');
+        const ctxModel1 = modelCanvas1.getContext('2d');
+        let game1Initialized = false;
+
+        let g1UserNodes = [];
+        let g1UserEdges = [];
+        let g1ModelNodes = [];
+        let g1ModelEdges = [];
+        let g1SelectedNode = null;
+        let g1CurrentTemplate = 0;
+
+        class Node1 {
+            constructor(x, y, id) {
+                this.x = x;
+                this.y = y;
+                this.id = id;
+                this.radius = 18;
+            }
+
+            draw(ctx, selected = false) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#3498db';
+                ctx.fill();
+                ctx.strokeStyle = selected ? '#f39c12' : '#2c3e50';
+                ctx.lineWidth = selected ? 3 : 2;
+                ctx.stroke();
+
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.id + 1, this.x, this.y);
+            }
+
+            contains(x, y) {
+                return Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2) < this.radius;
+            }
+        }
+
+        class Edge1 {
+            constructor(n1, n2) {
+                this.n1 = n1;
+                this.n2 = n2;
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.moveTo(this.n1.x, this.n1.y);
+                ctx.lineTo(this.n2.x, this.n2.y);
+                ctx.strokeStyle = '#34495e';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            contains(x, y, tolerance = 5) {
+                const dist = this.distanceToPoint(x, y);
+                return dist < tolerance;
+            }
+
+            distanceToPoint(x, y) {
+                const A = x - this.n1.x;
+                const B = y - this.n1.y;
+                const C = this.n2.x - this.n1.x;
+                const D = this.n2.y - this.n1.y;
+
+                const dot = A * C + B * D;
+                const lenSq = C * C + D * D;
+                let param = -1;
+                if (lenSq !== 0) param = dot / lenSq;
+
+                let xx, yy;
+                if (param < 0) {
+                    xx = this.n1.x;
+                    yy = this.n1.y;
+                } else if (param > 1) {
+                    xx = this.n2.x;
+                    yy = this.n2.y;
+                } else {
+                    xx = this.n1.x + param * C;
+                    yy = this.n1.y + param * D;
+                }
+
+                const dx = x - xx;
+                const dy = y - yy;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+        }
+
+        const templates = [
+            {
+                name: 'Triángulo',
+                nodes: [[150, 100], [250, 100], [200, 200]],
+                edges: [[0, 1], [1, 2], [2, 0]]
+            },
+            {
+                name: 'Cuadrado',
+                nodes: [[120, 80], [280, 80], [280, 240], [120, 240]],
+                edges: [[0, 1], [1, 2], [2, 3], [3, 0]]
+            },
+            {
+                name: 'Estrella',
+                nodes: [[200, 50], [280, 120], [250, 220], [150, 220], [120, 120]],
+                edges: [[0, 1], [0, 2], [0, 3], [0, 4]]
+            },
+            {
+                name: 'Hexágono',
+                nodes: [[200, 50], [310, 115], [310, 245], [200, 310], [90, 245], [90, 115]],
+                edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0]]
+            }
+        ];
+
+        function game1Init() {
+            if (!game1Initialized) {
+                canvas1.width = 350;
+                canvas1.height = 400;
+                modelCanvas1.width = 350;
+                modelCanvas1.height = 400;
+                
+                canvas1.addEventListener('click', game1ClickUser);
+                canvas1.addEventListener('contextmenu', game1RightClickUser);
+                game1Initialized = true;
+            }
+        }
+
+        function game1LoadTemplate(templateIndex) {
+            g1CurrentTemplate = templateIndex - 1;
+            const template = templates[g1CurrentTemplate];
+            
+            g1ModelNodes = [];
+            g1ModelEdges = [];
+            g1UserNodes = [];
+            g1UserEdges = [];
+            g1SelectedNode = null;
+
+            template.nodes.forEach((pos, i) => {
+                g1ModelNodes.push(new Node1(pos[0], pos[1], i));
+            });
+
+            template.edges.forEach(edge => {
+                g1ModelEdges.push(new Edge1(g1ModelNodes[edge[0]], g1ModelNodes[edge[1]]));
+            });
+
+            document.getElementById('g1-model-info').textContent = `📋 ${template.name} (${template.nodes.length} nodos)`;
+            
+            game1UpdateUser();
+            game1DrawModel();
+            game1Message(`✅ Plantilla cargada: ${template.name}`, 'info');
+        }
+
+        function game1ClickUser(e) {
+            const rect = canvas1.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            let clicked = false;
+            for (let node of g1UserNodes) {
+                if (node.contains(x, y)) {
+                    if (g1SelectedNode === node) {
+                        g1SelectedNode = null;
+                    } else if (g1SelectedNode) {
+                        game1AddEdge(g1SelectedNode, node);
+                        g1SelectedNode = null;
+                    } else {
+                        g1SelectedNode = node;
+                    }
+                    clicked = true;
+                    break;
+                }
+            }
+
+            if (!clicked && g1SelectedNode === null) {
+                g1UserNodes.push(new Node1(x, y, g1UserNodes.length));
+            }
+
+            game1UpdateUser();
+        }
+
+        function game1RightClickUser(e) {
+            e.preventDefault();
+            const rect = canvas1.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Intentar eliminar nodo
+            for (let i = g1UserNodes.length - 1; i >= 0; i--) {
+                if (g1UserNodes[i].contains(x, y)) {
+                    const nodeToDelete = g1UserNodes[i];
+                    g1UserEdges = g1UserEdges.filter(e => e.n1 !== nodeToDelete && e.n2 !== nodeToDelete);
+                    g1UserNodes.splice(i, 1);
+                    g1UserNodes.forEach((n, idx) => n.id = idx);
+                    game1UpdateUser();
+                    return;
+                }
+            }
+
+            // Intentar eliminar arista
+            for (let i = g1UserEdges.length - 1; i >= 0; i--) {
+                if (g1UserEdges[i].contains(x, y)) {
+                    g1UserEdges.splice(i, 1);
+                    game1UpdateUser();
+                    return;
+                }
+            }
+        }
+
+        function game1AddEdge(n1, n2) {
+            if (n1 === n2) return;
+            const exists = g1UserEdges.some(e => (e.n1 === n1 && e.n2 === n2) || (e.n1 === n2 && e.n2 === n1));
+            if (exists) {
+                game1Message('⚠️ Esta arista ya existe', 'error');
+                return;
+            }
+            g1UserEdges.push(new Edge1(n1, n2));
+        }
+
+        function game1UpdateUser() {
+            document.getElementById('g1-nodes').textContent = g1UserNodes.length;
+            document.getElementById('g1-edges').textContent = g1UserEdges.length;
+
+            ctx1.fillStyle = '#ffffff';
+            ctx1.fillRect(0, 0, canvas1.width, canvas1.height);
+
+            g1UserEdges.forEach(e => e.draw(ctx1));
+            g1UserNodes.forEach(n => n.draw(ctx1, n === g1SelectedNode));
+        }
+
+        function game1DrawModel() {
+            ctxModel1.fillStyle = '#ffffff';
+            ctxModel1.fillRect(0, 0, modelCanvas1.width, modelCanvas1.height);
+
+            g1ModelEdges.forEach(e => e.draw(ctxModel1));
+            g1ModelNodes.forEach(n => n.draw(ctxModel1));
+        }
+
+        function game1Validate() {
+            if (g1ModelNodes.length === 0) {
+                game1Message('❌ Primero carga una plantilla', 'error');
+                return;
+            }
+
+            if (g1UserNodes.length !== g1ModelNodes.length) {
+                showGame1Validation(`❌ Incorrecto\n\nTienes ${g1UserNodes.length} nodos, pero el modelo tiene ${g1ModelNodes.length}`, 'error');
+                return;
+            }
+
+            if (g1UserEdges.length !== g1ModelEdges.length) {
+                showGame1Validation(`❌ Incorrecto\n\nTienes ${g1UserEdges.length} aristas, pero el modelo tiene ${g1ModelEdges.length}`, 'error');
+                return;
+            }
+
+            const userAdj = createAdjacencyList1(g1UserNodes, g1UserEdges);
+            const modelAdj = createAdjacencyList1(g1ModelNodes, g1ModelEdges);
+
+            let isomorphic = true;
+            for (let i = 0; i < g1UserNodes.length; i++) {
+                if (userAdj[i].length !== modelAdj[i].length) {
+                    isomorphic = false;
+                    break;
+                }
+            }
+
+            if (isomorphic) {
+                showGame1Validation(`🎉 ¡Correcto!\n\nTu grafo coincide con el modelo`, 'success');
+            } else {
+                showGame1Validation(`❌ Incorrecto\n\nLa estructura no coincide con el modelo`, 'error');
+            }
+        }
+
+        function createAdjacencyList1(nodes, edges) {
+            const adj = Array(nodes.length).fill(null).map(() => []);
+            edges.forEach(e => {
+                adj[e.n1.id].push(e.n2.id);
+                adj[e.n2.id].push(e.n1.id);
+            });
+            adj.forEach(a => a.sort((x, y) => x - y));
+            return adj;
+        }
+
+        function showGame1Validation(text, type) {
+            const val = document.getElementById('g1-validation');
+            val.textContent = text;
+            val.className = `validation-result ${type} show`;
+            setTimeout(() => val.classList.remove('show'), 4000);
+        }
+
+        function game1Message(text, type) {
+            const msg = document.getElementById('g1-message');
+            msg.textContent = text;
+            msg.className = `message ${type} show`;
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        function game1ResetUser() {
+            g1UserNodes = [];
+            g1UserEdges = [];
+            g1SelectedNode = null;
+            game1UpdateUser();
+            game1Message('🔄 Grafo reiniciado', 'info');
+        }
+
+        function game1ClearUser() {
+            g1UserNodes = [];
+            g1UserEdges = [];
+            g1SelectedNode = null;
+            g1ModelNodes = [];
+            g1ModelEdges = [];
+            game1UpdateUser();
+            game1DrawModel();
+            game1Message('🗑️ Todo limpiado', 'info');
+        }
+
+        // ==================== JUEGO 2: COLOREO Y ARISTAS ====================
+        const canvas2 = document.getElementById('game2Canvas');
+        const modelCanvas2 = document.getElementById('game2ModelCanvas');
+        const ctx2 = canvas2.getContext('2d');
+        const ctxModel2 = modelCanvas2.getContext('2d');
+        let game2Initialized = false;
+
+        let g2ModelNodes = [];
+        let g2ModelEdges = [];
+        let g2UserNodes = [];
+        let g2UserEdges = [];
+        let g2SelectedColor = '#FF6B6B';
+        let g2SelectedNode = null;
+        let g2Mode = 'node'; // 'node', 'edge', 'color'
+
+        const colors = ['#FF6B6B', '#4ECDC4', '#FFD93D', '#6C5CE7'];
+
+        class Node2 {
+            constructor(x, y, id) {
+                this.x = x;
+                this.y = y;
+                this.id = id;
+                this.radius = 20;
+                this.color = null;
+            }
+
+            draw(ctx, selected = false) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color || '#ecf0f1';
+                ctx.fill();
+                ctx.strokeStyle = selected ? '#000' : '#2c3e50';
+                ctx.lineWidth = selected ? 3 : 2;
+                ctx.stroke();
+
+                ctx.fillStyle = this.color ? '#fff' : '#2c3e50';
+                ctx.font = 'bold 12px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.id + 1, this.x, this.y);
+            }
+
+            contains(x, y) {
+                return Math.sqrt((x - this.x) ** 2 + (y - this.y) ** 2) < this.radius;
+            }
+        }
+
+        class Edge2 {
+            constructor(n1, n2) {
+                this.n1 = n1;
+                this.n2 = n2;
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.moveTo(this.n1.x, this.n1.y);
+                ctx.lineTo(this.n2.x, this.n2.y);
+                ctx.strokeStyle = '#95a5a6';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            contains(x, y, tolerance = 5) {
+                const dist = this.distanceToPoint(x, y);
+                return dist < tolerance;
+            }
+
+            distanceToPoint(x, y) {
+                const A = x - this.n1.x;
+                const B = y - this.n1.y;
+                const C = this.n2.x - this.n1.x;
+                const D = this.n2.y - this.n1.y;
+
+                const dot = A * C + B * D;
+                const lenSq = C * C + D * D;
+                let param = -1;
+                if (lenSq !== 0) param = dot / lenSq;
+
+                let xx, yy;
+                if (param < 0) {
+                    xx = this.n1.x;
+                    yy = this.n1.y;
+                } else if (param > 1) {
+                    xx = this.n2.x;
+                    yy = this.n2.y;
+                } else {
+                    xx = this.n1.x + param * C;
+                    yy = this.n1.y + param * D;
+                }
+
+                const dx = x - xx;
+                const dy = y - yy;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            isValid() {
+                if (!this.n1.color || !this.n2.color) return true;
+                return this.n1.color !== this.n2.color;
+            }
+        }
+
+        function game2Init() {
+            if (!game2Initialized) {
+                canvas2.width = 350;
+                canvas2.height = 400;
+                modelCanvas2.width = 350;
+                modelCanvas2.height = 400;
+
+                canvas2.addEventListener('click', game2ClickUser);
+                canvas2.addEventListener('contextmenu', game2RightClickUser);
+                game2Initialized = true;
+            }
+        }
+
+        function game2SetMode(mode) {
+            g2Mode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const infoBox = document.getElementById('g2-mode-info');
+            const canvasInfo = document.getElementById('g2-canvas-info');
+
+            if (mode === 'node') {
+                infoBox.innerHTML = '<strong>💡 Modo Nodo:</strong> Click para crear nodos. Click derecho para eliminar.';
+                canvasInfo.textContent = 'Click para crear nodos';
+            } else if (mode === 'edge') {
+                infoBox.innerHTML = '<strong>💡 Modo Arista:</strong> Click en un nodo y luego en otro para conectarlos.';
+                canvasInfo.textContent = 'Click en dos nodos para conectar';
+            } else if (mode === 'color') {
+                infoBox.innerHTML = '<strong>💡 Modo Color:</strong> Selecciona un color y haz click en nodos para colorearlos.';
+                canvasInfo.textContent = 'Click para colorear nodos';
+            }
+        }
+
+        function game2Generate() {
+            g2ModelNodes = [];
+            g2ModelEdges = [];
+            g2UserNodes = [];
+            g2UserEdges = [];
+            g2SelectedNode = null;
+
+            const nodeCount = Math.floor(Math.random() * 3) + 5; // 5-7 nodos
+            const padding = 50;
+            const width = 350 - 2 * padding;
+            const height = 400 - 2 * padding;
+
+            for (let i = 0; i < nodeCount; i++) {
+                const angle = (i / nodeCount) * Math.PI * 2;
+                const x = padding + width / 2 + Math.cos(angle) * width / 3;
+                const y = padding + height / 2 + Math.sin(angle) * height / 3;
+                g2ModelNodes.push(new Node2(x, y, i));
+            }
+
+            // Crear aristas aleatorias
+            const edgeCount = Math.floor(nodeCount * 1.3);
+            for (let i = 0; i < edgeCount; i++) {
+                const n1 = g2ModelNodes[Math.floor(Math.random() * nodeCount)];
+                const n2 = g2ModelNodes[Math.floor(Math.random() * nodeCount)];
+
+                if (n1 !== n2) {
+                    const exists = g2ModelEdges.some(e => (e.n1 === n1 && e.n2 === n2) || (e.n1 === n2 && e.n2 === n1));
+                    if (!exists) {
+                        g2ModelEdges.push(new Edge2(n1, n2));
+                    }
+                }
+            }
+
+            // Colorear el modelo con algoritmo greedy
+            g2ModelNodes.forEach(n => n.color = null);
+            for (let node of g2ModelNodes) {
+                const usedColors = new Set();
+                g2ModelEdges.forEach(e => {
+                    if (e.n1 === node && e.n2.color) usedColors.add(e.n2.color);
+                    if (e.n2 === node && e.n1.color) usedColors.add(e.n1.color);
+                });
+
+                for (let color of colors) {
+                    if (!usedColors.has(color)) {
+                        node.color = color;
+                        break;
+                    }
+                }
+            }
+
+            // Crear copia de nodos para el usuario
+            g2UserNodes = g2ModelNodes.map(n => {
+                const copy = new Node2(n.x, n.y, n.id);
+                return copy;
+            });
+
+            g2UserEdges = [];
+
+            game2UpdateUser();
+            game2DrawModel();
+            game2Message('🎲 Nuevo grafo generado', 'info');
+            game2SetMode('node');
+        }
+
+        function game2ClickUser(e) {
+            const rect = canvas2.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            if (g2Mode === 'node') {
+                for (let node of g2UserNodes) {
+                    if (node.contains(x, y)) {
+                        return;
+                    }
+                }
+                g2UserNodes.push(new Node2(x, y, g2UserNodes.length));
+            } else if (g2Mode === 'edge') {
+                for (let node of g2UserNodes) {
+                    if (node.contains(x, y)) {
+                        if (g2SelectedNode === node) {
+                            g2SelectedNode = null;
+                        } else if (g2SelectedNode) {
+                            game2AddEdge(g2SelectedNode, node);
+                            g2SelectedNode = null;
+                        } else {
+                            g2SelectedNode = node;
+                        }
+                        break;
+                    }
+                }
+            } else if (g2Mode === 'color') {
+                for (let node of g2UserNodes) {
+                    if (node.contains(x, y)) {
+                        node.color = g2SelectedColor;
+                        break;
+                    }
+                }
+            }
+
+            game2UpdateUser();
+        }
+
+        function game2RightClickUser(e) {
+            e.preventDefault();
+            const rect = canvas2.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Eliminar nodo
+            for (let i = g2UserNodes.length - 1; i >= 0; i--) {
+                if (g2UserNodes[i].contains(x, y)) {
+                    const nodeToDelete = g2UserNodes[i];
+                    g2UserEdges = g2UserEdges.filter(e => e.n1 !== nodeToDelete && e.n2 !== nodeToDelete);
+                    g2UserNodes.splice(i, 1);
+                    g2UserNodes.forEach((n, idx) => n.id = idx);
+                    game2UpdateUser();
+                    return;
+                }
+            }
+
+            // Eliminar arista
+            for (let i = g2UserEdges.length - 1; i >= 0; i--) {
+                if (g2UserEdges[i].contains(x, y)) {
+                    g2UserEdges.splice(i, 1);
+                    game2UpdateUser();
+                    return;
+                }
+            }
+        }
+
+        function game2AddEdge(n1, n2) {
+            if (n1 === n2) return;
+            const exists = g2UserEdges.some(e => (e.n1 === n1 && e.n2 === n2) || (e.n1 === n2 && e.n2 === n1));
+            if (exists) {
+                game2Message('⚠️ Esta arista ya existe', 'error');
+                return;
+            }
+            g2UserEdges.push(new Edge2(n1, n2));
+        }
+
+        function game2SelectColor(color) {
+            g2SelectedColor = color;
+        }
+
+        function game2UpdateUser() {
+            document.getElementById('g2-nodes').textContent = g2UserNodes.length;
+            document.getElementById('g2-edges').textContent = g2UserEdges.length;
+            document.getElementById('g2-colored').textContent = g2UserNodes.filter(n => n.color).length;
+            document.getElementById('g2-connected').textContent = g2UserEdges.length;
+
+            ctx2.fillStyle = '#ffffff';
+            ctx2.fillRect(0, 0, canvas2.width, canvas2.height);
+
+            g2UserEdges.forEach(e => e.draw(ctx2));
+            g2UserNodes.forEach(n => n.draw(ctx2, n === g2SelectedNode));
+        }
+
+        function game2DrawModel() {
+            ctxModel2.fillStyle = '#ffffff';
+            ctxModel2.fillRect(0, 0, modelCanvas2.width, modelCanvas2.height);
+
+            g2ModelEdges.forEach(e => e.draw(ctxModel2));
+            g2ModelNodes.forEach(n => n.draw(ctxModel2));
+        }
+
+        function game2Validate() {
+            if (g2ModelNodes.length === 0) {
+                game2Message('❌ Primero genera un grafo', 'error');
+                return;
+            }
+
+            // Verificar nodos
+            if (g2UserNodes.length !== g2ModelNodes.length) {
+                showGame2Validation(`❌ Número de nodos incorrecto\n\nTienes ${g2UserNodes.length}, deberías tener ${g2ModelNodes.length}`, 'error');
+                return;
+            }
+
+            // Verificar aristas
+            if (g2UserEdges.length !== g2ModelEdges.length) {
+                showGame2Validation(`❌ Número de aristas incorrecto\n\nTienes ${g2UserEdges.length}, deberías tener ${g2ModelEdges.length}`, 'error');
+                return;
+            }
+
+            // Verificar estructura topológica
+            const userAdj = createAdjacencyList2(g2UserNodes, g2UserEdges);
+            const modelAdj = createAdjacencyList2(g2ModelNodes, g2ModelEdges);
+
+            let structureCorrect = true;
+            for (let i = 0; i < g2UserNodes.length; i++) {
+                if (userAdj[i].length !== modelAdj[i].length) {
+                    structureCorrect = false;
+                    break;
+                }
+            }
+
+            if (!structureCorrect) {
+                showGame2Validation('❌ La estructura del grafo no coincide', 'error');
+                return;
+            }
+
+            // Verificar coloreo
+            const allColored = g2UserNodes.every(n => n.color);
+            if (!allColored) {
+                showGame2Validation('❌ No todos los nodos están coloreados', 'error');
+                return;
+            }
+
+            const validColoring = g2UserEdges.every(e => e.n1.color !== e.n2.color);
+            if (!validColoring) {
+                showGame2Validation('❌ Nodos adyacentes tienen el mismo color', 'error');
+                return;
+            }
+
+            // Verificar si coincide exactamente
+            let exactMatch = true;
+            for (let i = 0; i < g2UserNodes.length; i++) {
+                if (g2UserNodes[i].color !== g2ModelNodes[i].color) {
+                    exactMatch = false;
+                    break;
+                }
+            }
+
+            if (exactMatch) {
+                showGame2Validation('🎉 ¡Perfecto!\n\nEstructura y coloreo correctos', 'success');
+            } else {
+                const userColors = new Set(g2UserNodes.map(n => n.color));
+                const modelColors = new Set(g2ModelNodes.map(n => n.color));
+                
+                if (userColors.size === modelColors.size) {
+                    showGame2Validation(`✅ ¡Excelente!\n\nEstructura correcta y coloreo válido\n(${userColors.size} colores)`, 'success');
+                } else {
+                    showGame2Validation(`⚠️ Estructura correcta\n\nPero usaste ${userColors.size} colores y el modelo usa ${modelColors.size}`, 'error');
+                }
+            }
+        }
+
+        function createAdjacencyList2(nodes, edges) {
+            const adj = Array(nodes.length).fill(null).map(() => []);
+            edges.forEach(e => {
+                adj[e.n1.id].push(e.n2.id);
+                adj[e.n2.id].push(e.n1.id);
+            });
+            adj.forEach(a => a.sort((x, y) => x - y));
+            return adj;
+        }
+
+        function showGame2Validation(text, type) {
+            const val = document.getElementById('g2-validation');
+            val.textContent = text;
+            val.className = `validation-result ${type} show`;
+            setTimeout(() => val.classList.remove('show'), 4000);
+        }
+
+        function game2Message(text, type) {
+            const msg = document.getElementById('g2-message');
+            msg.textContent = text;
+            msg.className = `message ${type} show`;
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        function game2ClearAll() {
+            g2UserNodes.forEach(n => n.color = null);
+            g2UserEdges = [];
+            g2SelectedNode = null;
+            game2UpdateUser();
+            game2Message('🗑️ Todo limpiado', 'info');
+        }
+    </script>
+</body>
+</html>
